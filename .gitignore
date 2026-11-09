@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+.claude/settings.local.json
+CLAUDE.local.md
+work/*/axe-*.json
+work/*/build/design-system/
+work/*/build/baseline/
+work/*/build/qa/
+work/*/wireframe-shots/
+
+work/

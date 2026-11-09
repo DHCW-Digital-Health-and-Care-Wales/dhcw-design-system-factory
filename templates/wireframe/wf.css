@@ -1,0 +1,113 @@
+/* Wireframe-only styles. Everything here is prefixed wf- so it can never be
+   mistaken for, or leak into, the DHCW design system's nhsw- classes. */
+
+/* Low-fidelity mode: greyscale, so reviewers comment on structure, not colour. */
+html.wf-lowfi body { filter: grayscale(1); }
+
+/* Numbered markers that tie an element to a note in the panel. Put
+   data-wf-note on a wrapper (form group, section), not on an input. */
+[data-wf-note] { position: relative; }
+html.wf-show-notes [data-wf-note]::after {
+  content: attr(data-wf-note);
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 4px;
+  border-radius: 12px;
+  background: #5c1a4a;
+  color: #ffffff;
+  font: bold 14px/24px Roboto, Arial, sans-serif;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+html.wf-show-notes [data-wf-note] { outline: 2px dashed #5c1a4a; outline-offset: 4px; }
+
+/* Content the spec doesn't cover yet. */
+.wf-gap {
+  display: block;
+  margin: 0 0 24px;
+  padding: 16px;
+  border: 2px dashed #5c1a4a;
+  background: #ffffff;
+  color: #212b32;
+  font: 16px/24px Roboto, Arial, sans-serif;
+}
+
+/* Welsh text still to come. */
+.wf-missing { outline: 2px dashed #5c1a4a; outline-offset: 2px; }
+
+/* Notes panel and toolbar, after the footer. */
+.wf-notes {
+  margin: 0;
+  padding: 24px 16px 96px;
+  border-top: 4px solid #5c1a4a;
+  background: #ffffff;
+  color: #212b32;
+  font: 16px/24px Roboto, Arial, sans-serif;
+}
+.wf-notes__inner { max-width: 960px; margin: 0 auto; }
+.wf-notes__title { margin: 0 0 8px; font-size: 22px; line-height: 32px; }
+.wf-notes__meta { margin: 0 0 16px; color: #4c6272; }
+.wf-notes ol { margin: 0 0 16px; padding-left: 24px; }
+.wf-notes li { margin-bottom: 8px; }
+.wf-notes a { color: #005aa8; }
+.wf-notes a:focus, .wf-toolbar button:focus {
+  outline: 3px solid #ffeb3b;
+  box-shadow: 0 0 0 6px #212b32;
+}
+
+.wf-toolbar {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: calc(100vw - 32px);
+}
+.wf-toolbar button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 2px solid #5c1a4a;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #5c1a4a;
+  font: bold 16px/24px Roboto, Arial, sans-serif;
+  cursor: pointer;
+}
+.wf-toolbar button[aria-pressed="true"] { background: #5c1a4a; color: #ffffff; }
+
+/* On small screens the toolbar sits in the notes panel instead of floating
+   over the page. */
+@media (max-width: 40.0625em) {
+  .wf-toolbar { position: static; margin-top: 16px; }
+  .wf-notes { padding-bottom: 24px; }
+}
+
+/* Keeps the note marker clear of the text of a small proposed link. */
+html.wf-show-notes [data-wf-language-switch][data-wf-note]::after { top: auto; bottom: -26px; right: -6px; }
+
+/* Space before a proposed link placed ahead of the dashboard's Exit link. */
+.wf-language-spacing { margin-left: 24px; }
+
+/* Shows a dialog the way it must behave in the real service: over the page,
+   with the page dimmed behind it. The "Warning" button hides it so the notes
+   below can be read. */
+.wf-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(11, 12, 12, 0.6);
+}
+.wf-modal > * { background: #ffffff; width: 100%; max-width: 25rem; }
+html.wf-hide-modal .wf-modal { display: none; }
+
+@media print { .wf-toolbar, .wf-modal { display: none; } }
